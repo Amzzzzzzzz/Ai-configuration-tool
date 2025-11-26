@@ -1,0 +1,28 @@
+.chat-window {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+}
+
+.chat-loading {
+  padding: 10px 14px;
+  background: #e7e7e7;
+  border-radius: 10px;
+  font-style: italic;
+  width: fit-content;
+  opacity: 0.8;
+  animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.3; }
+}
+
+
+

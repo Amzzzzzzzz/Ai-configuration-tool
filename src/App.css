@@ -80,6 +80,8 @@
   background: #fff;
   width: 450px;
   max-width: 95%;
+  max-height: 80vh;
+  overflow-y: auto;
   border-radius: 14px;
   padding: 25px;
   position: relative;

@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="app-wrapper">
       <header className="app-header">
-        <h1>Lighting AI Assistant</h1>
+        <h1>Quik Strip AI Assistant</h1>
         <span className="header-subtitle">Smart product recommendations 24/7</span>
       </header>
 

@@ -7,7 +7,7 @@ export default function WelcomeScreen({ onStart }) {
 
         <h1 className="welcome-title">QuikStrip</h1>
         <p className="welcome-subtitle">
-          Your 24/7 smart assistant for LED strip configurations, power supply matching, and lighting recommendations.
+          Your 24/7 Quik Strip assistant for LED strip configurations, power supply matching, and lighting recommendations.
         </p>
 
         <button className="start-btn" onClick={onStart}>

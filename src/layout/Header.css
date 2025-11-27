@@ -1,0 +1,30 @@
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: #ffffffd9;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-links a.active {
+  color: #0078ff;
+  font-weight: 600;
+}

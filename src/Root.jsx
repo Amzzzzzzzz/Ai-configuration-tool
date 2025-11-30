@@ -21,7 +21,7 @@ export default function Root() {
         <Route path="/history" element={<HistoryPage />} />
       </Routes>
 
-      <Footer />
+      
     </BrowserRouter>
   );
 }

@@ -28,3 +28,16 @@
   color: #0078ff;
   font-weight: 600;
 }
+
+@media (max-width: 600px) {
+  .nav-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .nav-links a {
+    margin-left: 10px;
+    font-size: 14px;
+  }
+}

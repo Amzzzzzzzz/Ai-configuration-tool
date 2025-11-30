@@ -106,6 +106,16 @@
   color: #000;
 }
 
+@media (max-width: 600px) {
+  .chat-area {
+    padding: 12px;
+  }
+
+  .modal-content {
+    width: 90%;
+    max-height: 80vh;
+  }
+}
 
 
 

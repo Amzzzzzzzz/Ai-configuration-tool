@@ -33,17 +33,17 @@ function App() {
               className="view-bom-btn"
               onClick={() => setShowBOM(true)}
             >
-                📄 View Bill of Materials
-              </button>
-            )}
-
+              View Bill of Materials
+            </button>
+          )}
 
           <InputBar
             setMessages={setMessages}
             setBom={(b) => {
-              if (b && b.items && b.items.length > 0) {
+              if (b?.items?.length > 0) {
                 setBom(b);
-                setShowBOM(true);}
+                setShowBOM(true);
+              }
             }}
             setLoading={setLoading}
             messages={messages}
@@ -51,26 +51,23 @@ function App() {
         </div>
       </div>
 
-{showBOM && (
-  <div className="modal-overlay" onClick={() => setShowBOM(false)}>
-    <div
-      className="modal-content"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <button className="close-btn" onClick={() => setShowBOM(false)}>
-        ✕
-      </button>
-
-      <BOMPanel bom={bom} />
-    </div>
-  </div>
-)}
-
+      {showBOM && (
+        <div className="modal-overlay" onClick={() => setShowBOM(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-btn" onClick={() => setShowBOM(false)}>
+              ✕
+            </button>
+            <BOMPanel bom={bom} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export default App;
+
+
 
 
 

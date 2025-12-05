@@ -2,44 +2,57 @@ import { useState } from "react";
 import "../styles/InputBar.css";
 import { sendMessageToAI } from "../aiClient";
 
-export default function InputBar({ setMessages, setBom, setLoading, messages }) {
+import { useState } from "react";
+
+function InputBar({ setMessages, setBom, setLoading, messages }) {
   const [input, setInput] = useState("");
 
-  async function handleSend() {
+  async function sendMessage(e) {
+    e.preventDefault();
     if (!input.trim()) return;
 
-    const userMsg = { role: "user", content: input };
+    const userMessage = { role: "user", content: input };
+    const updatedMessages = [...messages, userMessage];
 
-    const newMessageList = [...messages, userMsg];
-    setMessages(newMessageList);
+    setMessages(updatedMessages);
     setInput("");
     setLoading(true);
 
-    const result = await sendMessageToAI(newMessageList);
-    setMessages(prev => [
-      ...prev,
-      { role: "assistant", content: result.aiMessage.content }
-    ]);
+    try {
+      const res = await fetch(import.meta.env.VITE_EDGE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: updatedMessages }),
+      });
 
-    if (result.bom) {
-      setBom(result.bom);
+      const data = await res.json();
+      setLoading(false);
+
+      if (data.bom) {
+        // SUCCESS → AI returned a BOM
+        setBom(data.bom);
+        setMessages([...updatedMessages, data.message]);
+      } else {
+        // NORMAL TEXT RESPONSE
+        setMessages([...updatedMessages, data.message]);
+      }
+    } catch (err) {
+      console.error("Edge function error:", err);
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
-    <div className="inputbar-container">
+    <form className="input-bar" onSubmit={sendMessage}>
       <input
-        className="inputbar-input"
+        type="text"
+        placeholder="Ask about LED strips, wattage, profiles..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Ask about LED strips, wattage, profiles..."
       />
-      <button className="inputbar-button" onClick={handleSend}>
-        Send
-      </button>
-    </div>
+      <button type="submit">Send</button>
+    </form>
   );
 }
 
+export default InputBar;

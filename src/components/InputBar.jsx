@@ -56,12 +56,14 @@ function InputBar({ setMessages, setBom, setLoading, messages }) {
         placeholder="Ask about LED strips, wattage, profiles..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") sendMessage(e);
+        }}
       />
       <button type="submit">Send</button>
     </form>
   );
 }
-
 
 export default InputBar;
 

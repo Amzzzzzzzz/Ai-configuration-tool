@@ -17,5 +17,3 @@ export async function sendMessageToAI(messages) {
 }
 
 
-
-

@@ -8,10 +8,24 @@ import BOMPanel from "./components/BOMPanel";
 
 function App() {
   const [started, setStarted] = useState(false);
+
   const [messages, setMessages] = useState([]);
   const [bom, setBom] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showBOM, setShowBOM] = useState(false);
+
+  const [configState, setConfigState] = useState({
+    type: null,
+    cct: null,
+    ip: null,
+    metres: null,
+    dimmable: null,
+    wants_profile: null,
+    profile_type: null,
+    connectors: null,
+    connector_count: null,
+    ready: false
+  });
 
   if (!started) {
     return <WelcomeScreen onStart={() => setStarted(true)} />;
@@ -39,24 +53,25 @@ function App() {
 
           <InputBar
             setMessages={setMessages}
-            setBom={(b) => {
-              if (b?.items?.length > 0) {
-                setBom(b);
-                setShowBOM(true);
-              }
-            }}
+            setBom={setBom}
             setLoading={setLoading}
             messages={messages}
+            configState={configState}
+            setConfigState={setConfigState}
           />
         </div>
       </div>
 
       {showBOM && (
         <div className="modal-overlay" onClick={() => setShowBOM(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button className="close-btn" onClick={() => setShowBOM(false)}>
               ✕
             </button>
+
             <BOMPanel bom={bom} />
           </div>
         </div>
@@ -66,6 +81,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import "../styles/InputBar.css";
-import { sendMessageToAI } from "../aiClient";
 
-import { useState } from "react";
-
-function InputBar({ setMessages, setBom, setLoading, messages }) {
+function InputBar({
+  setMessages,
+  setBom,
+  setLoading,
+  messages,
+  configState,
+  setConfigState
+}) {
   const [input, setInput] = useState("");
 
   async function sendMessage(e) {
@@ -22,20 +26,30 @@ function InputBar({ setMessages, setBom, setLoading, messages }) {
       const res = await fetch(import.meta.env.VITE_EDGE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: updatedMessages }),
+        body: JSON.stringify({
+          messages: updatedMessages,
+          state: configState // 🔥 send memory to backend
+        }),
       });
 
       const data = await res.json();
       setLoading(false);
 
+      // 🔥 store updated state from backend
+      if (data.updatedState) {
+        setConfigState(data.updatedState);
+      }
+
+      // BOM returned
       if (data.bom) {
-        // SUCCESS → AI returned a BOM
         setBom(data.bom);
         setMessages([...updatedMessages, data.message]);
-      } else {
-        // NORMAL TEXT RESPONSE
-        setMessages([...updatedMessages, data.message]);
+        return;
       }
+
+      // Normal message
+      setMessages([...updatedMessages, data.message]);
+
     } catch (err) {
       console.error("Edge function error:", err);
       setLoading(false);
@@ -56,3 +70,4 @@ function InputBar({ setMessages, setBom, setLoading, messages }) {
 }
 
 export default InputBar;
+

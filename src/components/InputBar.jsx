@@ -1,31 +1,40 @@
 import { useState } from "react";
 import "../styles/InputBar.css";
+import { sendMessageToAI } from "../aiClient";
+
+
+import { useState } from "react";
+
 
 function InputBar({ setMessages, setBom, setLoading, messages }) {
   const [input, setInput] = useState("");
+
 
   async function sendMessage(e) {
     e.preventDefault();
     if (!input.trim()) return;
 
+
     const userMessage = { role: "user", content: input };
     const updatedMessages = [...messages, userMessage];
 
-    const trimmedMessages = updatedMessages.slice(-8);
 
     setMessages(updatedMessages);
     setInput("");
     setLoading(true);
 
+
     try {
       const res = await fetch(import.meta.env.VITE_EDGE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: trimmedMessages }),
+        body: JSON.stringify({ messages: updatedMessages }),
       });
+
 
       const data = await res.json();
       setLoading(false);
+
 
       if (data.bom) {
         setBom(data.bom);
@@ -38,6 +47,7 @@ function InputBar({ setMessages, setBom, setLoading, messages }) {
       setLoading(false);
     }
   }
+
 
   return (
     <form className="input-bar" onSubmit={sendMessage}>
@@ -52,6 +62,8 @@ function InputBar({ setMessages, setBom, setLoading, messages }) {
   );
 }
 
+
 export default InputBar;
+
 
 

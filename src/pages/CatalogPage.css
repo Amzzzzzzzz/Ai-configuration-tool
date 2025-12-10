@@ -10,17 +10,19 @@
 
 .catalog-card {
   background: white;
-  padding: 18px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
 }
 
 .cat-tag {
+  margin-top: 10px;
   display: inline-block;
-  margin-top: 8px;
-  font-size: 13px;
-  background: #0078ff;
+  background: #1b73e8;
   color: white;
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-size: 13px;
 }
+
